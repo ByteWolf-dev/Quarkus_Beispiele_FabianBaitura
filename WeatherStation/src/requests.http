@@ -8,3 +8,21 @@ Content-Type: application/json
 ###
 GET http://localhost:8080/sensor
 Content-Type: application/json
+
+###
+POST http://localhost:8080/sensor
+Content-Type: application/json
+
+{
+"name": "MySensor2",
+"location": "Town 321"
+}
+
+###
+PUT http://localhost:8080/sensor/1
+Content-Type: application/json
+
+{
+  "name": "Water Cooler Sensor",
+  "location": "My House"
+}

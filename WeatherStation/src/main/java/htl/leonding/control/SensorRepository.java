@@ -5,6 +5,7 @@ import htl.leonding.entity.DTOs.SensorDto;
 import htl.leonding.entity.Sensor;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -21,7 +22,11 @@ public class SensorRepository implements PanacheRepository<Sensor> {
                 .collect(Collectors.toList());
     }
 
-    public SensorDto getSensorByName(String name) {
+    public SensorDto getSensorByNameAsDto(String name) {
+        return Mapper.toDto(getSensorByName(name));
+    }
+
+    public Sensor getSensorByName(String name) {
         Optional<Sensor> sensorOptional = findAll()
                 .stream()
                 .toList()
@@ -29,6 +34,30 @@ public class SensorRepository implements PanacheRepository<Sensor> {
                 .filter(s -> s.getName().equals(name))
                 .findFirst();
 
-        return sensorOptional.map(Mapper::toDto).orElse(null);
+        return sensorOptional.orElse(null);
+    }
+
+    public boolean existsByName(String name) {
+        return getSensorByName(name) != null;
+    }
+
+    public boolean existsById(Long id) {
+        Sensor s = findById(id);
+        return findById(id) != null;
+    }
+
+    public Long addSensor(SensorDto sensorDto) {
+        Sensor sensor = Mapper.toEntity(sensorDto);
+        persist(sensor);
+        return sensor.getId();
+    }
+
+    public SensorDto updateSensor(SensorDto sensorDto, Long id) {
+        Sensor dbSensor = findById(id);
+
+        dbSensor.setLocation(sensorDto.location());
+        dbSensor.setName(sensorDto.name());
+
+        return Mapper.toDto(dbSensor);
     }
 }

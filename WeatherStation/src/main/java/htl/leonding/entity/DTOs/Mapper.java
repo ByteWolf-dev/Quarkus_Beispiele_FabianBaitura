@@ -26,4 +26,8 @@ public class Mapper {
                 measurement.getPressure()
         );
     }
+
+    public static Sensor toEntity(SensorDto sensorDto){
+        return new Sensor(sensorDto.name(), sensorDto.location());
+    }
 }
