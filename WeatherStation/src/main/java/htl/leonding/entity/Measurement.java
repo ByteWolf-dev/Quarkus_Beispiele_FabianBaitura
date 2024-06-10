@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private double temperature;
     private double humidity;
@@ -24,11 +24,11 @@ public class Measurement {
         this.pressure = pressure;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
