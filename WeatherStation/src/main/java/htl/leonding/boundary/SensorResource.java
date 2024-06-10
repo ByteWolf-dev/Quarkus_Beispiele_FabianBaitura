@@ -32,7 +32,6 @@ public class SensorResource {
 
     @GET
     @Path("/{name}")
-    @Transactional
     public Response getSensorByName(@PathParam("name") String name) {
         try {
             return Response.ok(sensorRepository.getSensorByNameAsDto(name)).build();
@@ -43,6 +42,7 @@ public class SensorResource {
 
     @POST
     @Path("/")
+    @Transactional
     public Response createSensor(SensorDto sensorDto) {
         try {
             if(sensorRepository.existsByName(sensorDto.name())) {
