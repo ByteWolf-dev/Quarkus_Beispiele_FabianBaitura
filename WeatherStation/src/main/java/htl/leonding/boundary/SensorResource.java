@@ -1,18 +1,16 @@
 package htl.leonding.boundary;
 
-import htl.leonding.controll.SensorRepository;
+import htl.leonding.control.SensorRepository;
 import htl.leonding.entity.DTOs.Mapper;
-import htl.leonding.entity.Sensor;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Path("/sensor")
+@Produces(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
     @Inject
@@ -21,12 +19,21 @@ public class SensorResource {
     @GET
     @Path("/")
     public Response getSensors() {
-        return Response.ok(sensorRepository.findAll()
-                        .stream()
-                        .toList()
-                .stream()
-                .map(Mapper::toDto)
-                .collect(Collectors.toList()))
-                .build();
+        try {
+            return Response.ok(sensorRepository.findAllAsDto()).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+    @GET
+    @Path("/{name}")
+    public Response getSensorByName(@PathParam("name") String name) {
+        try {
+            return Response.ok(sensorRepository.getSensorByName(name)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
