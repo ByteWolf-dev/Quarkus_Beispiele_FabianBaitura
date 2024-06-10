@@ -18,7 +18,7 @@ public class Student {
     private StudentContactInfo contactInfo;
 
     @OneToMany(mappedBy = "student")
-    private List<Enrollment> enrollments = new ArrayList<>();
+    private List<Enrolment> enrolments = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public List<Enrollment> getEnrollments() {
-        return enrollments;
+    public List<Enrolment> getEnrollments() {
+        return enrolments;
     }
 
-    public void setEnrollments(List<Enrollment> enrollments) {
-        this.enrollments = enrollments;
+    public void setEnrollments(List<Enrolment> enrolments) {
+        this.enrolments = enrolments;
     }
 }

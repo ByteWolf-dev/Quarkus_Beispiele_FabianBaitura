@@ -19,7 +19,7 @@ public class Course {
     private String description;
 
     @OneToMany(mappedBy = "course")
-    private List<Enrollment> enrollments = new ArrayList<>();
+    private List<Enrolment> enrollments = new ArrayList<>();
 
     public Course(String title, String description) {
         this.title = title;
@@ -63,11 +63,11 @@ public class Course {
         this.description = description;
     }
 
-    public List<Enrollment> getEnrollments() {
+    public List<Enrolment> getEnrollments() {
         return enrollments;
     }
 
-    public void setEnrollments(List<Enrollment> enrollments) {
-        this.enrollments = enrollments;
+    public void setEnrollments(List<Enrolment> enrolments) {
+        this.enrollments = enrolments;
     }
 }

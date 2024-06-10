@@ -1,13 +1,11 @@
 package htl.leonding.entity;
 
 import jakarta.persistence.*;
-import org.apache.derby.client.am.DateTime;
-import org.jboss.resteasy.reactive.DateFormat;
 
 import java.time.LocalDateTime;
 
 @Entity
-public class Enrollment {
+public class Enrolment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +18,13 @@ public class Enrollment {
 
     private LocalDateTime enrollmentDate;
 
-    public Enrollment(Student student, Course course, LocalDateTime enrollmentDate) {
+    public Enrolment(Student student, Course course, LocalDateTime enrollmentDate) {
         this.student = student;
         this.course = course;
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Enrollment() {}
+    public Enrolment() {}
 
     public Long getId() {
         return id;
