@@ -2,10 +2,14 @@ package htl.leonding.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import java.util.List;
 
+
 @Entity
+@XmlRootElement(name = "book")
 public class Teacher {
 
     //#region Properties
@@ -20,6 +24,7 @@ public class Teacher {
     @NotNull(message = "Last Name cannot be null")
     private String lastName;
 
+    @XmlTransient
     @OneToMany(mappedBy = "teacher")
     private List<Course> courses;
 

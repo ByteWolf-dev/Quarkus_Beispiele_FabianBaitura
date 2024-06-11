@@ -6,3 +6,7 @@ Content-Type: application/json
   "firstName": "Arnold",
   "lastName": "Maiden"
 }
+
+###
+GET http://localhost:8080/teacher/
+Content-Type: application/xml
