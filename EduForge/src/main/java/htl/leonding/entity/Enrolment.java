@@ -1,22 +1,35 @@
 package htl.leonding.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDateTime;
 
 @Entity
 public class Enrolment {
+
+    //#region Properties
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Student cannot be null")
     @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
 
+    @NotNull(message = "Course cannot be null")
     @ManyToOne(cascade = CascadeType.ALL)
     private Course course;
 
+    @NotNull(message = "Message should not be null")
+    @PastOrPresent(message = "Date should be in the past or present")
     private LocalDateTime enrollmentDate;
+
+    //#endregion
+
+    //#region Constructors
 
     public Enrolment(Student student, Course course, LocalDateTime enrollmentDate) {
         this.student = student;
@@ -25,6 +38,10 @@ public class Enrolment {
     }
 
     public Enrolment() {}
+
+    //#endregion
+
+    //#region Getters/Setters
 
     public Long getId() {
         return id;
@@ -59,4 +76,6 @@ public class Enrolment {
     public void setEnrollmentDate(LocalDateTime enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
+
+    //#endregion
 }

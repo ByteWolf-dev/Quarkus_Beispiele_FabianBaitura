@@ -1,19 +1,31 @@
 package htl.leonding.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
 @Entity
 public class Teacher {
+
+    //#region Properties
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "First Name cannot be null")
     private String firstName;
+
+    @NotNull(message = "Last Name cannot be null")
     private String lastName;
 
     @OneToMany(mappedBy = "teacher")
-    List<Course> courses;
+    private List<Course> courses;
+
+    //#endregion
+
+    //#region Constructors
 
     public Teacher() {}
 
@@ -21,6 +33,10 @@ public class Teacher {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    //#endregion
+
+    //#region Getters/Setters
 
     public Long getId() {
         return id;
@@ -53,4 +69,6 @@ public class Teacher {
     public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
+
+    //#endregion
 }

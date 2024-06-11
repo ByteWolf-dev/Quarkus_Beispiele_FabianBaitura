@@ -1,9 +1,12 @@
 package htl.leonding.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class StudentContactInfo {
+    //region properties
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -11,10 +14,16 @@ public class StudentContactInfo {
     @OneToOne(mappedBy = "contactInfo")
     private Student student;
 
+    @NotNull(message = "Phone Number cannot be null")
     private String phoneNumber;
 
+    @NotNull(message = "Email cannot be null")
+    @Email(message = "Email is invalid")
     private String email;
 
+    //endregion
+
+    //region constructor
     public StudentContactInfo(String email, String phoneNumber, Student student) {
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -22,7 +31,9 @@ public class StudentContactInfo {
     }
 
     public StudentContactInfo() {}
+    //endregion
 
+    //region getter/setter
     public Student getStudent() {
         return student;
     }
@@ -55,4 +66,5 @@ public class StudentContactInfo {
     public void setId(Long id) {
         this.id = id;
     }
+    //endregion
 }

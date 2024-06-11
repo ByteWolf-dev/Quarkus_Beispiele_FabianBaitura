@@ -1,12 +1,16 @@
 package htl.leonding.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class Course {
+
+    //#region Properties
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,12 +18,18 @@ public class Course {
     @ManyToOne(cascade = CascadeType.ALL)
     private Teacher teacher;
 
+    @NotNull(message = "Title should not be null")
     private String title;
 
+    @NotNull(message = "Description should not be null")
     private String description;
 
     @OneToMany(mappedBy = "course")
     private List<Enrolment> enrollments = new ArrayList<>();
+
+    //#endregion
+
+    //#region Constructors
 
     public Course(String title, String description) {
         this.title = title;
@@ -29,6 +39,10 @@ public class Course {
     public Course() {
 
     }
+
+    //#endregion
+
+    //#region Getters/Setters
 
     public Long getId() {
         return id;
@@ -70,4 +84,6 @@ public class Course {
     public void setEnrollments(List<Enrolment> enrolments) {
         this.enrollments = enrolments;
     }
+
+    //#endregion
 }

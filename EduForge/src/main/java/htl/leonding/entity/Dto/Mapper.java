@@ -1,9 +1,10 @@
 package htl.leonding.entity.Dto;
 
+import htl.leonding.entity.Dto.Dtos.StudentDto;
 import htl.leonding.entity.Student;
 
 public class Mapper {
-    public static toDto(Student student) {
-
+    public static StudentDto toDto(Student student) {
+        return null;
     }
 }
