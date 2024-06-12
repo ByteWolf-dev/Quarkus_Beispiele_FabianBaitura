@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -76,5 +77,22 @@ public class ResearcherResource {
     @Path("/env")
     public Response envFileTest() {
         return Response.status(Response.Status.ACCEPTED).entity(envService.getGreeting()).build();
+    }
+
+    @GET
+    @Path("/byfirstandlastname")
+    public Response getByFirstAndLastName(
+            @QueryParam("firstName") String firstName,
+            @QueryParam("lastName") String lastName)
+    {
+        try {
+            return Response.ok()
+                    .entity(researcherRepository.getByFirstNameAndLastName(
+                            firstName,
+                            lastName))
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(e.getMessage()).build();
+        }
     }
 }

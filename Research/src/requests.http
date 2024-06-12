@@ -6,11 +6,16 @@ POST http://localhost:8080/researcher/
 Content-Type: application/json
 
 {
-  "firstName": "john",
+  "firstName": "John",
   "lastName": "Reed",
   "email": "johnReed@gmail.com"
 }
 
 ###
 GET http://localhost:8080/researcher/env
+Content-Type: */*
+
+###
+
+GET http://localhost:8080/researcher/byfirstandlastname/?firstName="John"&lastName="Reed"
 Content-Type: */*

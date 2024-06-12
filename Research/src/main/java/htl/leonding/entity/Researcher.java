@@ -13,6 +13,12 @@ import java.util.List;
 @Entity
 @Table(name = "R_Researcher")
 @XmlRootElement
+@NamedQueries(
+        @NamedQuery(name = "findResearcherByName",
+                query = "SELECT r FROM Researcher r " +
+                        "WHERE r.firstName = :firstName " +
+                        "AND r.lastName = :lastName")
+)
 public class Researcher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
