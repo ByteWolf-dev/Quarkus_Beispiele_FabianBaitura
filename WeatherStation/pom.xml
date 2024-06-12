@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>htl.leonding</groupId>
-    <artifactId>weatherstation</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
+    <groupId>at.htlleonding.vehicle</groupId>
+    <artifactId>vehicle-panache</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <properties>
-        <compiler-plugin.version>3.12.1</compiler-plugin.version>
-        <maven.compiler.release>21</maven.compiler.release>
+        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.11.1</quarkus.platform.version>
+        <quarkus.platform.version>3.6.8</quarkus.platform.version>
         <skipITs>true</skipITs>
-        <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <surefire-plugin.version>3.1.2</surefire-plugin.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -28,31 +27,14 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm</artifactId>
+            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-jsonb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-orm-panache</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest-jaxb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-derby</artifactId>
+            <artifactId>quarkus-resteasy-reactive</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -60,7 +42,11 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-rest</artifactId>
+            <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jdbc-derby</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -72,8 +58,20 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.24.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-db</artifactId>
+            <version>2.0.2</version>
+            <scope>test</scope>
+        </dependency>
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>
@@ -119,19 +117,18 @@
                             <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <maven.home>${maven.home}</maven.home>
+                            </systemPropertyVariables>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <systemPropertyVariables>
-                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                        <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        <maven.home>${maven.home}</maven.home>
-                    </systemPropertyVariables>
-                </configuration>
             </plugin>
         </plugins>
     </build>
-
     <profiles>
         <profile>
             <id>native</id>
@@ -142,7 +139,7 @@
             </activation>
             <properties>
                 <skipITs>false</skipITs>
-                <quarkus.native.enabled>true</quarkus.native.enabled>
+                <quarkus.package.type>native</quarkus.package.type>
             </properties>
         </profile>
     </profiles>

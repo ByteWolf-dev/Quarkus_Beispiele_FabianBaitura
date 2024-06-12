@@ -1,16 +1,12 @@
 package htl.leonding.boundary;
 
 import htl.leonding.control.SensorRepository;
-import htl.leonding.entity.DTOs.Mapper;
 import htl.leonding.entity.DTOs.SensorDto;
-import htl.leonding.entity.Sensor;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-import java.util.stream.Collectors;
 
 @Path("/sensor")
 @Produces(MediaType.APPLICATION_JSON)
