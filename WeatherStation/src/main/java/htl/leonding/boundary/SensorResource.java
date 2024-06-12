@@ -2,6 +2,9 @@ package htl.leonding.boundary;
 
 import htl.leonding.control.SensorRepository;
 import htl.leonding.entity.DTOs.SensorDto;
+import io.quarkus.qute.Location;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateInstance;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
@@ -9,11 +12,21 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/sensor")
-@Produces(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
     @Inject
     SensorRepository sensorRepository;
+
+    @Inject
+    @Location("pub/postSensor.html")
+    Template postSensorTemplate;
+
+    @GET
+    @Path("/postSensor")
+    @Produces(MediaType.TEXT_HTML)
+    public TemplateInstance getSensorTemplate() {
+        return postSensorTemplate.instance();
+    }
 
     @GET
     @Path("/")

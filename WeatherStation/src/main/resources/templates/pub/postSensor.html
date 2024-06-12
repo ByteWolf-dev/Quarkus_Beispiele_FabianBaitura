@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form id="sensorForm">
+    <label for="sensorName">SensorName: </label>
+    <input id="sensorName" type="text">
+
+    <label for="sensorLocation">Location: </label>
+    <input id="sensorLocation" type="text">
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+
+<script>
+    document.getElementById("sensorForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let name = document.getElementById('sensorName').value;
+        let location = document.getElementById('sensorLocation').value;
+
+        let data = {
+            name: name,
+            location: location
+        }
+
+        fetch("http://localhost:8080/sensor/", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if(!response.ok) {
+                throw new Error("Network related issue")
+            }
+        }).then(data => {
+            console.log(data)
+        }).catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+        })
+    })
+</script>
+</html>
