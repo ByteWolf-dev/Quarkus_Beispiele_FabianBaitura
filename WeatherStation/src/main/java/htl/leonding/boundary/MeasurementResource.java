@@ -1,8 +1,6 @@
 package htl.leonding.boundary;
 
 import htl.leonding.control.MeasurementRepository;
-import htl.leonding.entity.DTOs.MeasurementDto;
-import htl.leonding.entity.Measurement;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -11,7 +9,6 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.util.List;
 
 @Path("/measurement")
 @Produces(MediaType.APPLICATION_JSON)
